@@ -4,10 +4,12 @@ import StartScreen from '../screens/StartScreen';
 import WeatherDisplayScreen from '../screens/WeatherDisplayScreen';
 
 import colors from '../constants/colors';
+import CityWeatherList from '../screens/CityWeatherList';
 
 const WeatherNavigator = createStackNavigator({
     Origin: StartScreen,
-    Display: WeatherDisplayScreen
+    Display: WeatherDisplayScreen,
+    List: CityWeatherList
 }, {
     defaultNavigationOptions:{
         headerStyle: {
