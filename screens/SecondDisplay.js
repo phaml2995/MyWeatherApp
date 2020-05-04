@@ -5,22 +5,19 @@ import colors from '../constants/colors';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import Card from '../components/Card.component';
 import { FontAwesome } from '@expo/vector-icons';
-import { useDispatch } from 'react-redux';
-import *  as weatherActions from '../redux/actions/cityActions';
 
-const WeatherDisplayScreen = props => {
+const SecondDisplay = props => {
     const zipCode = props.navigation.getParam('zip');
     const coords = props.navigation.getParam('coords');
+    const name = props.navigation.getParam('cityName');
     const [isLoading, setIsLoading] = useState(false);
     const [forecast, setForecast] = useState();
-    const dispatch = useDispatch();
     
     let endPoint;
-    if (coords) {
-        endPoint = `http://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.long}&units=imperial&appid=${ENV.OWM_API}`
-    } else if (zipCode) {
-        endPoint = `http://api.openweathermap.org/data/2.5/weather?zip=${zipCode}&units=imperial&appid=${ENV.OWM_API}`
-    } 
+    
+    if (name) {
+        endPoint = `http://api.openweathermap.org/data/2.5/weather?q=${name}&units=imperial&appid=${ENV.OWM_API}`
+    }
     
     const fetchForecast = async () => {
         const response = await fetch(endPoint);
@@ -31,9 +28,8 @@ const WeatherDisplayScreen = props => {
         if (!resData) {
             throw new Error('Something went wrong');
         }
-        
+     
         setForecast(resData)
-      
     }
 
     useEffect(() => {
@@ -61,14 +57,12 @@ const WeatherDisplayScreen = props => {
     }
 
     const onSwipeHandler = () => {
-        props.navigation.navigate('Origin');
+        props.navigation.goBack();
     }
 
     const buttonPressHandler = () => {
-        dispatch(weatherActions.addCity(toString(forecast.sys.id),forecast.name,forecast.main.temp.toFixed(0)));
         props.navigation.navigate('List',{forecast: forecast});
     }
-
 
     if (isLoading) {
         return (
@@ -99,9 +93,10 @@ const WeatherDisplayScreen = props => {
             </View>
             </View> 
         </GestureRecognizer>
+
     )
 }
-WeatherDisplayScreen.navigationOptions = {
+SecondDisplay.navigationOptions = {
     headerShown: false
 }
 const styles = StyleSheet.create({
@@ -167,5 +162,5 @@ const styles = StyleSheet.create({
     }
 });
 
-export default WeatherDisplayScreen;
+export default SecondDisplay;
 

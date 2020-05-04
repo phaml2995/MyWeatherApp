@@ -42,13 +42,12 @@ const styles = StyleSheet.create({
         shadowColor: 'black',
         shadowOpacity: 0.26,
         shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 8,
+        shadowRadius: 10,
         elevation: 5,
-        borderRadius: 10,
-        backgroundColor: 'white',
-        height: 100,
-        margin: 10,
-        overflow: 'hidden'
+        borderBottomColor:'yellow',
+        borderBottomWidth: 2,
+        height: 100, 
+        overflow: 'hidden',
 
     },
     textContainer: {
@@ -61,12 +60,15 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 40,
-        
     },
     temp: {
         fontSize: 50,
+        color: 'white'
         
     },
+    gradient: {
+        backgroundColor: 'rgba(0,0,0,0.2)'
+    }
 });
 
 export default ListItem;

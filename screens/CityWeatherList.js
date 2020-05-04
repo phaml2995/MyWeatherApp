@@ -1,22 +1,21 @@
 import React from 'react';
 
-import {StyleSheet, FlatList } from 'react-native'
+import { StyleSheet, FlatList } from 'react-native'
 import ListItem from '../components/ListItem.component';
 import { useSelector } from 'react-redux';
 
 const CityWeatherList = props => {
-    const forecast = props.navigation.getParam('forecast');
     const cities = useSelector(state => state.city.cityList);
-    
     return (
 
         <FlatList
+            contentContainerStyle={styles.mainVew}
             data={cities}
             keyExtractor={item => item.id}
             renderItem={itemData =>
                 <ListItem
                     onSelect={() => {
-                        props.navigation.navigate('Display',{cityName: itemData.item.name})
+                        props.navigation.navigate('SecDisplay', { cityName: itemData.item.name })
                     }}
                     title={itemData.item.name}
                     temp={itemData.item.temp}
@@ -27,14 +26,14 @@ const CityWeatherList = props => {
 };
 
 CityWeatherList.navigationOptions = {
-    headerTitle: 'All Cities'
+    headerShown: false
 }
 
 const styles = StyleSheet.create({
     mainVew: {
-        flex: 1,
+ 
         justifyContent: 'center',
-        alignItems: 'center'
+        
     }
 });
 
